@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Http; //needed for searching URL
 using System.Text.RegularExpressions; //needed for page title
+using System.IO; //needed for read write of files
 
 namespace WebBrowser
 {
@@ -26,7 +27,9 @@ namespace WebBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            homePage = "https://www.hw.ac.uk/";
+            StreamReader sr = new StreamReader("HomePage.txt");
+            homePage = sr.ReadLine();
+            sr.Close();
             menuSetHomePage.Text = homePage;
             Search(homePage);
             
@@ -100,6 +103,10 @@ namespace WebBrowser
 
         private void SetHomePage(object sender, EventArgs e)
         {
+            File.WriteAllText("HomePage.txt", String.Empty);
+            StreamWriter sw = new StreamWriter("HomePage.txt");
+            sw.WriteLine(menuSetHomePage.Text);
+            sw.Close();
             homePage = menuSetHomePage.Text;
 
         }

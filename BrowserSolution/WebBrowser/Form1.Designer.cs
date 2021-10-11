@@ -36,12 +36,16 @@ namespace WebBrowser
             this.btnSearch = new System.Windows.Forms.Button();
             this.htmlTextBox = new System.Windows.Forms.TextBox();
             this.btnFavourite = new System.Windows.Forms.Button();
-            this.settingsPanel = new System.Windows.Forms.Panel();
-            this.btnHistory = new System.Windows.Forms.Button();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.statusBox = new System.Windows.Forms.TextBox();
             this.textBoxPageTitle = new System.Windows.Forms.TextBox();
-            this.settingsPanel.SuspendLayout();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHomePage = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSetHomePage = new System.Windows.Forms.ToolStripTextBox();
+            this.btnSetHomePage = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHome = new System.Windows.Forms.Button();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // searchBar
@@ -93,7 +97,7 @@ namespace WebBrowser
             // 
             // htmlTextBox
             // 
-            this.htmlTextBox.Location = new System.Drawing.Point(0, 65);
+            this.htmlTextBox.Location = new System.Drawing.Point(0, 63);
             this.htmlTextBox.Multiline = true;
             this.htmlTextBox.Name = "htmlTextBox";
             this.htmlTextBox.Size = new System.Drawing.Size(984, 468);
@@ -101,43 +105,13 @@ namespace WebBrowser
             // 
             // btnFavourite
             // 
-            this.btnFavourite.Location = new System.Drawing.Point(699, 7);
+            this.btnFavourite.Location = new System.Drawing.Point(678, 7);
             this.btnFavourite.Name = "btnFavourite";
             this.btnFavourite.Size = new System.Drawing.Size(41, 23);
             this.btnFavourite.TabIndex = 8;
             this.btnFavourite.Text = "FAV";
             this.btnFavourite.UseVisualStyleBackColor = true;
             this.btnFavourite.Click += new System.EventHandler(this.NewFavourite);
-            // 
-            // settingsPanel
-            // 
-            this.settingsPanel.Controls.Add(this.btnHistory);
-            this.settingsPanel.Controls.Add(this.btnSettings);
-            this.settingsPanel.Location = new System.Drawing.Point(872, 8);
-            this.settingsPanel.MaximumSize = new System.Drawing.Size(100, 232);
-            this.settingsPanel.MinimumSize = new System.Drawing.Size(100, 22);
-            this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(100, 22);
-            this.settingsPanel.TabIndex = 9;
-            // 
-            // btnHistory
-            // 
-            this.btnHistory.Location = new System.Drawing.Point(0, 28);
-            this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(100, 23);
-            this.btnHistory.TabIndex = 1;
-            this.btnHistory.Text = "History";
-            this.btnHistory.UseVisualStyleBackColor = true;
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Location = new System.Drawing.Point(0, -1);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(100, 23);
-            this.btnSettings.TabIndex = 0;
-            this.btnSettings.Text = "SETTINGS";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.Settings);
             // 
             // statusBox
             // 
@@ -153,14 +127,75 @@ namespace WebBrowser
             this.textBoxPageTitle.Size = new System.Drawing.Size(100, 20);
             this.textBoxPageTitle.TabIndex = 11;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStrip1.AutoSize = false;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuSettings});
+            this.menuStrip1.Location = new System.Drawing.Point(763, 9);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.menuStrip1.Size = new System.Drawing.Size(212, 24);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuSettings
+            // 
+            this.menuSettings.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.menuSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuHistory,
+            this.menuHomePage});
+            this.menuSettings.Name = "menuSettings";
+            this.menuSettings.Size = new System.Drawing.Size(69, 20);
+            this.menuSettings.Text = "SETTINGS";
+            // 
+            // menuHistory
+            // 
+            this.menuHistory.Name = "menuHistory";
+            this.menuHistory.Size = new System.Drawing.Size(180, 22);
+            this.menuHistory.Text = "History";
+            // 
+            // menuHomePage
+            // 
+            this.menuHomePage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuSetHomePage,
+            this.btnSetHomePage});
+            this.menuHomePage.Name = "menuHomePage";
+            this.menuHomePage.Size = new System.Drawing.Size(180, 22);
+            this.menuHomePage.Text = "Set Home Page";
+            // 
+            // menuSetHomePage
+            // 
+            this.menuSetHomePage.Name = "menuSetHomePage";
+            this.menuSetHomePage.Size = new System.Drawing.Size(100, 23);
+            // 
+            // btnSetHomePage
+            // 
+            this.btnSetHomePage.Name = "btnSetHomePage";
+            this.btnSetHomePage.Size = new System.Drawing.Size(180, 22);
+            this.btnSetHomePage.Text = "Set Home Page";
+            this.btnSetHomePage.Click += new System.EventHandler(this.SetHomePage);
+            // 
+            // btnHome
+            // 
+            this.btnHome.Location = new System.Drawing.Point(726, 7);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(34, 23);
+            this.btnHome.TabIndex = 13;
+            this.btnHome.Text = "H";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.Home);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.btnHome);
             this.Controls.Add(this.textBoxPageTitle);
             this.Controls.Add(this.statusBox);
-            this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.btnFavourite);
             this.Controls.Add(this.htmlTextBox);
             this.Controls.Add(this.btnSearch);
@@ -168,10 +203,13 @@ namespace WebBrowser
             this.Controls.Add(this.btnForward);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.searchBar);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.settingsPanel.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,11 +223,15 @@ namespace WebBrowser
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox htmlTextBox;
         private System.Windows.Forms.Button btnFavourite;
-        private System.Windows.Forms.Panel settingsPanel;
-        private System.Windows.Forms.Button btnHistory;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.TextBox statusBox;
         private System.Windows.Forms.TextBox textBoxPageTitle;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuSettings;
+        private System.Windows.Forms.ToolStripMenuItem menuHistory;
+        private System.Windows.Forms.ToolStripMenuItem menuHomePage;
+        private System.Windows.Forms.ToolStripTextBox menuSetHomePage;
+        private System.Windows.Forms.ToolStripMenuItem btnSetHomePage;
+        private System.Windows.Forms.Button btnHome;
     }
 }
 

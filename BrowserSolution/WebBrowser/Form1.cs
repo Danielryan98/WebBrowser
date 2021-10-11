@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net.Http;
-using System.Collections;
-using System.Text.RegularExpressions;
+using System.Net.Http; //needed for searching URL
+using System.Text.RegularExpressions; //needed for page title
 
 namespace WebBrowser
 {
@@ -18,6 +17,7 @@ namespace WebBrowser
         static Stack<String> backStack = new Stack<String>();
         static Stack<String> forwardStack = new Stack<String>();
         static String currentPageAddress = "";
+        static String homePage = "";
 
         public Form1()
         {
@@ -26,7 +26,10 @@ namespace WebBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Search("http://google.com");
+            homePage = "https://www.hw.ac.uk/";
+            menuSetHomePage.Text = homePage;
+            Search(homePage);
+            
         }
 
         private void btnSearchPressed(object sender, EventArgs e)
@@ -95,19 +98,18 @@ namespace WebBrowser
             }
         }
 
-        bool isCollapsed = true;
-        private void Settings(object sender, EventArgs e)
+        private void SetHomePage(object sender, EventArgs e)
         {
-            if (isCollapsed)
-            {
-                settingsPanel.Size = settingsPanel.MaximumSize;
-                isCollapsed = false;
-            } else
-            {
-                settingsPanel.Size = settingsPanel.MinimumSize;
-                isCollapsed = true;
-            }
+            homePage = menuSetHomePage.Text;
+
         }
+
+        private void Home(object sender, EventArgs e)
+        {
+            Search(homePage);
+
+        }
+
 
         public Dictionary<string, string> favouritesDict = new Dictionary<string, string>();
         public string favouriteName { get; set; }
@@ -125,7 +127,6 @@ namespace WebBrowser
 
         }
 
-       
     }
 
     public class Favourite

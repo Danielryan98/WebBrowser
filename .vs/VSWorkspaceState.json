@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BrowserSolution",
+    "\\BrowserSolution\\WebBrowser"
   ],
-  "SelectedNode": "\\BrowserSolution.sln",
+  "SelectedNode": "\\BrowserSolution\\WebBrowser\\Form1.cs",
   "PreviewInSolutionExplorer": false
 }

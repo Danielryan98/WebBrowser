@@ -25,7 +25,7 @@ namespace WebBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Search("http://google.com");
         }
 
         private void btnSearchPressed(object sender, EventArgs e)
@@ -78,13 +78,13 @@ namespace WebBrowser
             try
             {
                 HttpResponseMessage response = await client.GetAsync(address);
-                response.EnsureSuccessStatusCode();
+                statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 // Above three lines can be replaced with new helper method below
                 // string responseBody = await client.GetStringAsync(uri);
-                
                 htmlTextBox.Text = responseBody;
                 currentPageAddress = address;
+                response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException e)
             {
@@ -92,6 +92,45 @@ namespace WebBrowser
                 Console.WriteLine("Message :{0} ", e.Message);
             }
         }
+
+        bool isCollapsed = true;
+        private void Settings(object sender, EventArgs e)
+        {
+            if (isCollapsed)
+            {
+                settingsPanel.Size = settingsPanel.MaximumSize;
+                isCollapsed = false;
+            } else
+            {
+                settingsPanel.Size = settingsPanel.MinimumSize;
+                isCollapsed = true;
+            }
+        }
+
+        public Dictionary<string, string> favouritesDict = new Dictionary<string, string>();
+        public string favouriteName { get; set; }
+        public string favouriteURL { get; set; }
+
+        
+
+        private void NewFavourite(object sender, EventArgs e)
+        {
+            Favourite newFav = new Favourite();
+            favouriteName = "Fav 1";
+            favouriteURL = currentPageAddress;
+
+            favouritesDict.Add(favouriteName, favouriteURL);
+
+        }
+
+
+    }
+
+    public class Favourite
+    {
+        
+
+        
 
     }
 

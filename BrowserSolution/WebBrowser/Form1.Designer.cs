@@ -35,18 +35,24 @@ namespace WebBrowser
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.htmlTextBox = new System.Windows.Forms.TextBox();
+            this.btnFavourite = new System.Windows.Forms.Button();
+            this.settingsPanel = new System.Windows.Forms.Panel();
+            this.btnHistory = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
+            this.statusBox = new System.Windows.Forms.TextBox();
+            this.settingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // searchBar
             // 
-            this.searchBar.Location = new System.Drawing.Point(268, 9);
+            this.searchBar.Location = new System.Drawing.Point(214, 9);
             this.searchBar.Name = "searchBar";
             this.searchBar.Size = new System.Drawing.Size(400, 20);
             this.searchBar.TabIndex = 1;
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(66, 7);
+            this.btnBack.Location = new System.Drawing.Point(12, 7);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(75, 23);
             this.btnBack.TabIndex = 2;
@@ -56,7 +62,7 @@ namespace WebBrowser
             // 
             // btnForward
             // 
-            this.btnForward.Location = new System.Drawing.Point(147, 7);
+            this.btnForward.Location = new System.Drawing.Point(93, 7);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(75, 23);
             this.btnForward.TabIndex = 3;
@@ -66,7 +72,7 @@ namespace WebBrowser
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(228, 7);
+            this.btnRefresh.Location = new System.Drawing.Point(174, 7);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(34, 23);
             this.btnRefresh.TabIndex = 4;
@@ -76,7 +82,7 @@ namespace WebBrowser
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(674, 7);
+            this.btnSearch.Location = new System.Drawing.Point(620, 7);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(52, 23);
             this.btnSearch.TabIndex = 5;
@@ -92,11 +98,61 @@ namespace WebBrowser
             this.htmlTextBox.Size = new System.Drawing.Size(984, 497);
             this.htmlTextBox.TabIndex = 6;
             // 
+            // btnFavourite
+            // 
+            this.btnFavourite.Location = new System.Drawing.Point(699, 7);
+            this.btnFavourite.Name = "btnFavourite";
+            this.btnFavourite.Size = new System.Drawing.Size(41, 23);
+            this.btnFavourite.TabIndex = 8;
+            this.btnFavourite.Text = "FAV";
+            this.btnFavourite.UseVisualStyleBackColor = true;
+            this.btnFavourite.Click += new System.EventHandler(this.NewFavourite);
+            // 
+            // settingsPanel
+            // 
+            this.settingsPanel.Controls.Add(this.btnHistory);
+            this.settingsPanel.Controls.Add(this.btnSettings);
+            this.settingsPanel.Location = new System.Drawing.Point(872, 8);
+            this.settingsPanel.MaximumSize = new System.Drawing.Size(100, 232);
+            this.settingsPanel.MinimumSize = new System.Drawing.Size(100, 22);
+            this.settingsPanel.Name = "settingsPanel";
+            this.settingsPanel.Size = new System.Drawing.Size(100, 22);
+            this.settingsPanel.TabIndex = 9;
+            // 
+            // btnHistory
+            // 
+            this.btnHistory.Location = new System.Drawing.Point(0, 28);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(100, 23);
+            this.btnHistory.TabIndex = 1;
+            this.btnHistory.Text = "History";
+            this.btnHistory.UseVisualStyleBackColor = true;
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Location = new System.Drawing.Point(0, -1);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(100, 23);
+            this.btnSettings.TabIndex = 0;
+            this.btnSettings.Text = "SETTINGS";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.Settings);
+            // 
+            // statusBox
+            // 
+            this.statusBox.Location = new System.Drawing.Point(12, 537);
+            this.statusBox.Name = "statusBox";
+            this.statusBox.Size = new System.Drawing.Size(156, 20);
+            this.statusBox.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.statusBox);
+            this.Controls.Add(this.settingsPanel);
+            this.Controls.Add(this.btnFavourite);
             this.Controls.Add(this.htmlTextBox);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnRefresh);
@@ -106,6 +162,7 @@ namespace WebBrowser
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.settingsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,6 +175,11 @@ namespace WebBrowser
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox htmlTextBox;
+        private System.Windows.Forms.Button btnFavourite;
+        private System.Windows.Forms.Panel settingsPanel;
+        private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.TextBox statusBox;
     }
 }
 

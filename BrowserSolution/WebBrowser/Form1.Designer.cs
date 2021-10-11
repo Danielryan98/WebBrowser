@@ -40,6 +40,7 @@ namespace WebBrowser
             this.btnHistory = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.statusBox = new System.Windows.Forms.TextBox();
+            this.textBoxPageTitle = new System.Windows.Forms.TextBox();
             this.settingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,10 +93,10 @@ namespace WebBrowser
             // 
             // htmlTextBox
             // 
-            this.htmlTextBox.Location = new System.Drawing.Point(0, 36);
+            this.htmlTextBox.Location = new System.Drawing.Point(0, 65);
             this.htmlTextBox.Multiline = true;
             this.htmlTextBox.Name = "htmlTextBox";
-            this.htmlTextBox.Size = new System.Drawing.Size(984, 497);
+            this.htmlTextBox.Size = new System.Drawing.Size(984, 468);
             this.htmlTextBox.TabIndex = 6;
             // 
             // btnFavourite
@@ -145,11 +146,19 @@ namespace WebBrowser
             this.statusBox.Size = new System.Drawing.Size(156, 20);
             this.statusBox.TabIndex = 10;
             // 
+            // textBoxPageTitle
+            // 
+            this.textBoxPageTitle.Location = new System.Drawing.Point(12, 37);
+            this.textBoxPageTitle.Name = "textBoxPageTitle";
+            this.textBoxPageTitle.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPageTitle.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.textBoxPageTitle);
             this.Controls.Add(this.statusBox);
             this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.btnFavourite);
@@ -180,6 +189,7 @@ namespace WebBrowser
         private System.Windows.Forms.Button btnHistory;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.TextBox statusBox;
+        private System.Windows.Forms.TextBox textBoxPageTitle;
     }
 }
 

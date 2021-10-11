@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Http;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace WebBrowser
 {
@@ -84,6 +85,7 @@ namespace WebBrowser
                 // string responseBody = await client.GetStringAsync(uri);
                 htmlTextBox.Text = responseBody;
                 currentPageAddress = address;
+                textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException e)
@@ -123,7 +125,7 @@ namespace WebBrowser
 
         }
 
-
+       
     }
 
     public class Favourite

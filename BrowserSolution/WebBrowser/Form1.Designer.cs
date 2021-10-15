@@ -101,7 +101,7 @@ namespace WebBrowser
             this.htmlTextBox.Location = new System.Drawing.Point(0, 63);
             this.htmlTextBox.Multiline = true;
             this.htmlTextBox.Name = "htmlTextBox";
-            this.htmlTextBox.Size = new System.Drawing.Size(809, 468);
+            this.htmlTextBox.Size = new System.Drawing.Size(984, 468);
             this.htmlTextBox.TabIndex = 6;
             // 
             // btnFavourite
@@ -170,6 +170,7 @@ namespace WebBrowser
             // 
             // menuSetHomePage
             // 
+            this.menuSetHomePage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuSetHomePage.Name = "menuSetHomePage";
             this.menuSetHomePage.Size = new System.Drawing.Size(100, 23);
             // 

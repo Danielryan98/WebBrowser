@@ -43,11 +43,13 @@ namespace WebBrowser
             // 
             this.favouritesListView.HideSelection = false;
             this.favouritesListView.Location = new System.Drawing.Point(13, 12);
+            this.favouritesListView.MultiSelect = false;
             this.favouritesListView.Name = "favouritesListView";
             this.favouritesListView.Size = new System.Drawing.Size(353, 426);
             this.favouritesListView.TabIndex = 0;
             this.favouritesListView.UseCompatibleStateImageBehavior = false;
             this.favouritesListView.View = System.Windows.Forms.View.List;
+            this.favouritesListView.ItemActivate += new System.EventHandler(this.GetFavourite);
             // 
             // btnDeleteFav
             // 

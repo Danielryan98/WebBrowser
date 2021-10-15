@@ -34,5 +34,10 @@ namespace WebBrowser
             }
         }
 
+        private void GetFavourite(object sender, EventArgs e)
+        {
+            string favURL = favouritesListView.SelectedItems.ToString();
+            
+        }
     }
 }

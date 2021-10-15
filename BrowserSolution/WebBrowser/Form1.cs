@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net.Http; //needed for searching URL
 using System.Text.RegularExpressions; //needed for page title
 using System.IO; //needed for read write of files
+using System.Data.SQLite;
 
 namespace WebBrowser
 {
@@ -27,6 +28,7 @@ namespace WebBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ReadFavourites();
             StreamReader sr = new StreamReader("HomePage.txt");
             homePage = sr.ReadLine();
             sr.Close();
@@ -117,31 +119,62 @@ namespace WebBrowser
 
         }
 
+    
 
-        public Dictionary<string, string> favouritesDict = new Dictionary<string, string>();
-        public string favouriteName { get; set; }
-        public string favouriteURL { get; set; }
-
-        
 
         private void NewFavourite(object sender, EventArgs e)
         {
-            Favourite newFav = new Favourite();
-            favouriteName = "Fav 1";
-            favouriteURL = currentPageAddress;
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
+            {
 
-            favouritesDict.Add(favouriteName, favouriteURL);
+                connection.Open();
 
+                SQLiteCommand writeSQL;
+                writeSQL = connection.CreateCommand();
+                writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES ('http://test123.com', 'TEST123')";
+                writeSQL.ExecuteNonQuery();
+
+                connection.Close();
+            }
+
+             ReadFavourites();
+        }
+
+        private void ReadFavourites()
+        {
+            favouritesListBox.Text = "";
+
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
+            {
+
+                connection.Open();
+
+
+                List<Favourite> favList = new List<Favourite>();
+                SQLiteDataReader readSQL;
+                SQLiteCommand getSQLData;
+                getSQLData = connection.CreateCommand();
+                getSQLData.CommandText = "SELECT * FROM Favourites";
+                readSQL = getSQLData.ExecuteReader();
+                while (readSQL.Read())
+                {
+                    favList.Add(new Favourite() {URL = readSQL["URL"].ToString(), TITLE = readSQL["TITLE"].ToString()});
+                    
+                }
+                for (int i = 0; i < favList.Count; i++)
+                {
+                    favouritesListBox.Text += favList[i].URL;
+                    favouritesListBox.Text += favList[i].TITLE;
+                }
+
+                connection.Close();
+            }
+            
         }
 
     }
 
-    public class Favourite
-    {
-        
+  
 
-        
-
-    }
 
     }

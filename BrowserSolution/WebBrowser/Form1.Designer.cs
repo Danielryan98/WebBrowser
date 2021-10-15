@@ -45,6 +45,7 @@ namespace WebBrowser
             this.menuSetHomePage = new System.Windows.Forms.ToolStripTextBox();
             this.btnSetHomePage = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHome = new System.Windows.Forms.Button();
+            this.favouritesListBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,7 +101,7 @@ namespace WebBrowser
             this.htmlTextBox.Location = new System.Drawing.Point(0, 63);
             this.htmlTextBox.Multiline = true;
             this.htmlTextBox.Name = "htmlTextBox";
-            this.htmlTextBox.Size = new System.Drawing.Size(984, 468);
+            this.htmlTextBox.Size = new System.Drawing.Size(809, 468);
             this.htmlTextBox.TabIndex = 6;
             // 
             // btnFavourite
@@ -154,7 +155,7 @@ namespace WebBrowser
             // menuHistory
             // 
             this.menuHistory.Name = "menuHistory";
-            this.menuHistory.Size = new System.Drawing.Size(180, 22);
+            this.menuHistory.Size = new System.Drawing.Size(155, 22);
             this.menuHistory.Text = "History";
             // 
             // menuHomePage
@@ -163,18 +164,19 @@ namespace WebBrowser
             this.menuSetHomePage,
             this.btnSetHomePage});
             this.menuHomePage.Name = "menuHomePage";
-            this.menuHomePage.Size = new System.Drawing.Size(180, 22);
+            this.menuHomePage.Size = new System.Drawing.Size(155, 22);
             this.menuHomePage.Text = "Set Home Page";
             // 
             // menuSetHomePage
             // 
+            this.menuSetHomePage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuSetHomePage.Name = "menuSetHomePage";
             this.menuSetHomePage.Size = new System.Drawing.Size(100, 23);
             // 
             // btnSetHomePage
             // 
             this.btnSetHomePage.Name = "btnSetHomePage";
-            this.btnSetHomePage.Size = new System.Drawing.Size(180, 22);
+            this.btnSetHomePage.Size = new System.Drawing.Size(160, 22);
             this.btnSetHomePage.Text = "Set Home Page";
             this.btnSetHomePage.Click += new System.EventHandler(this.SetHomePage);
             // 
@@ -188,11 +190,20 @@ namespace WebBrowser
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.Home);
             // 
+            // favouritesListBox
+            // 
+            this.favouritesListBox.Location = new System.Drawing.Point(816, 63);
+            this.favouritesListBox.Multiline = true;
+            this.favouritesListBox.Name = "favouritesListBox";
+            this.favouritesListBox.Size = new System.Drawing.Size(159, 468);
+            this.favouritesListBox.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.favouritesListBox);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.textBoxPageTitle);
             this.Controls.Add(this.statusBox);
@@ -232,6 +243,7 @@ namespace WebBrowser
         private System.Windows.Forms.ToolStripTextBox menuSetHomePage;
         private System.Windows.Forms.ToolStripMenuItem btnSetHomePage;
         private System.Windows.Forms.Button btnHome;
+        private System.Windows.Forms.TextBox favouritesListBox;
     }
 }
 

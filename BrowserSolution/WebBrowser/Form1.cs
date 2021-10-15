@@ -119,8 +119,13 @@ namespace WebBrowser
 
         }
 
-    
 
+        private void ActivateFavouritesPage(object sender, EventArgs e)
+        {
+            FavouritesForm favPage = new FavouritesForm();
+            DialogResult dialogresult = favPage.ShowDialog();
+
+        }
 
         private void NewFavourite(object sender, EventArgs e)
         {
@@ -131,7 +136,7 @@ namespace WebBrowser
 
                 SQLiteCommand writeSQL;
                 writeSQL = connection.CreateCommand();
-                writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES ('http://test123.com', 'TEST123')";
+                writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES ('http://daniel.com', 'Dan')";
                 writeSQL.ExecuteNonQuery();
 
                 connection.Close();
@@ -142,7 +147,7 @@ namespace WebBrowser
 
         private void ReadFavourites()
         {
-            favouritesListBox.Text = "";
+            favouritesListBox.Items.Clear();
 
             using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
             {
@@ -163,9 +168,9 @@ namespace WebBrowser
                 }
                 for (int i = 0; i < favList.Count; i++)
                 {
-                    favouritesListBox.Text += favList[i].URL;
-                    favouritesListBox.Text += favList[i].TITLE;
+                    favouritesListBox.Items.Add(favList[i].TITLE + " " + favList[i].URL);
                 }
+                favouritesListBox.View = View.List;
 
                 connection.Close();
             }

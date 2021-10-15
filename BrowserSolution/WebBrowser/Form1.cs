@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Net.Http; //needed for searching URL
 using System.Text.RegularExpressions; //needed for page title
 using System.IO; //needed for read write of files
-using System.Data.SQLite;
 
 namespace WebBrowser
 {
@@ -28,7 +27,7 @@ namespace WebBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ReadFavourites();
+            /*ReadFavourites();*/
             StreamReader sr = new StreamReader("HomePage.txt");
             homePage = sr.ReadLine();
             sr.Close();
@@ -124,58 +123,17 @@ namespace WebBrowser
         {
             FavouritesForm favPage = new FavouritesForm();
             DialogResult dialogresult = favPage.ShowDialog();
+           
 
         }
 
         private void NewFavourite(object sender, EventArgs e)
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
-            {
-
-                connection.Open();
-
-                SQLiteCommand writeSQL;
-                writeSQL = connection.CreateCommand();
-                writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES ('http://daniel.com', 'Dan')";
-                writeSQL.ExecuteNonQuery();
-
-                connection.Close();
-            }
-
-             ReadFavourites();
+            Database db = new Database();
+            db.NewFavourite(currentPageAddress, textBoxPageTitle.Text);
         }
 
-        private void ReadFavourites()
-        {
-            favouritesListBox.Items.Clear();
-
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
-            {
-
-                connection.Open();
-
-
-                List<Favourite> favList = new List<Favourite>();
-                SQLiteDataReader readSQL;
-                SQLiteCommand getSQLData;
-                getSQLData = connection.CreateCommand();
-                getSQLData.CommandText = "SELECT * FROM Favourites";
-                readSQL = getSQLData.ExecuteReader();
-                while (readSQL.Read())
-                {
-                    favList.Add(new Favourite() {URL = readSQL["URL"].ToString(), TITLE = readSQL["TITLE"].ToString()});
-                    
-                }
-                for (int i = 0; i < favList.Count; i++)
-                {
-                    favouritesListBox.Items.Add(favList[i].TITLE + " " + favList[i].URL);
-                }
-                favouritesListBox.View = View.List;
-
-                connection.Close();
-            }
-            
-        }
+        
 
     }
 

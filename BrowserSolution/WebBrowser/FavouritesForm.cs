@@ -17,6 +17,22 @@ namespace WebBrowser
             InitializeComponent();
         }
 
-        
+        private void FavouritesForm_Load(object sender, EventArgs e)
+        {
+            PopulateFavouriteList();
+
+        }
+
+        private void PopulateFavouriteList()
+        {
+            Database db = new Database();
+            List<Favourite> favList = db.ReadFavourites();
+
+            for (int i = 0; i < favList.Count; i++)
+            {
+                favouritesListView.Items.Add(favList[i].TITLE + " " + favList[i].URL);
+            }
+        }
+
     }
 }

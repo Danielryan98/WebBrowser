@@ -47,6 +47,7 @@ namespace WebBrowser
             this.favouritesListView.Size = new System.Drawing.Size(353, 426);
             this.favouritesListView.TabIndex = 0;
             this.favouritesListView.UseCompatibleStateImageBehavior = false;
+            this.favouritesListView.View = System.Windows.Forms.View.List;
             // 
             // btnDeleteFav
             // 
@@ -124,6 +125,7 @@ namespace WebBrowser
             this.Controls.Add(this.favouritesListView);
             this.Name = "FavouritesForm";
             this.Text = "FavouritesForm";
+            this.Load += new System.EventHandler(this.FavouritesForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

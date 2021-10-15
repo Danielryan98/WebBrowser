@@ -44,9 +44,8 @@ namespace WebBrowser
             this.menuHomePage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSetHomePage = new System.Windows.Forms.ToolStripTextBox();
             this.btnSetHomePage = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnHome = new System.Windows.Forms.Button();
             this.favouritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.favouritesListBox = new System.Windows.Forms.ListView();
+            this.btnHome = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,7 +156,7 @@ namespace WebBrowser
             // menuHistory
             // 
             this.menuHistory.Name = "menuHistory";
-            this.menuHistory.Size = new System.Drawing.Size(180, 22);
+            this.menuHistory.Size = new System.Drawing.Size(155, 22);
             this.menuHistory.Text = "History";
             // 
             // menuHomePage
@@ -166,7 +165,7 @@ namespace WebBrowser
             this.menuSetHomePage,
             this.btnSetHomePage});
             this.menuHomePage.Name = "menuHomePage";
-            this.menuHomePage.Size = new System.Drawing.Size(180, 22);
+            this.menuHomePage.Size = new System.Drawing.Size(155, 22);
             this.menuHomePage.Text = "Set Home Page";
             // 
             // menuSetHomePage
@@ -181,6 +180,13 @@ namespace WebBrowser
             this.btnSetHomePage.Text = "Set Home Page";
             this.btnSetHomePage.Click += new System.EventHandler(this.SetHomePage);
             // 
+            // favouritesToolStripMenuItem
+            // 
+            this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
+            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.favouritesToolStripMenuItem.Text = "Favourites";
+            this.favouritesToolStripMenuItem.Click += new System.EventHandler(this.ActivateFavouritesPage);
+            // 
             // btnHome
             // 
             this.btnHome.Location = new System.Drawing.Point(726, 7);
@@ -191,28 +197,11 @@ namespace WebBrowser
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.Home);
             // 
-            // favouritesToolStripMenuItem
-            // 
-            this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
-            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.favouritesToolStripMenuItem.Text = "Favourites";
-            this.favouritesToolStripMenuItem.Click += new System.EventHandler(this.ActivateFavouritesPage);
-            // 
-            // favouritesListBox
-            // 
-            this.favouritesListBox.HideSelection = false;
-            this.favouritesListBox.Location = new System.Drawing.Point(815, 63);
-            this.favouritesListBox.Name = "favouritesListBox";
-            this.favouritesListBox.Size = new System.Drawing.Size(160, 468);
-            this.favouritesListBox.TabIndex = 15;
-            this.favouritesListBox.UseCompatibleStateImageBehavior = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.favouritesListBox);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.textBoxPageTitle);
             this.Controls.Add(this.statusBox);
@@ -253,7 +242,6 @@ namespace WebBrowser
         private System.Windows.Forms.ToolStripMenuItem btnSetHomePage;
         private System.Windows.Forms.Button btnHome;
         private System.Windows.Forms.ToolStripMenuItem favouritesToolStripMenuItem;
-        private System.Windows.Forms.ListView favouritesListBox;
     }
 }
 

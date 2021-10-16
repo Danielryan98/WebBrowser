@@ -25,6 +25,8 @@ namespace WebBrowser
 
         private void PopulateFavouriteList()
         {
+            favouritesListView.Items.Clear();
+
             Database db = new Database();
             Dictionary<string, string> favDict = db.ReadFavourites();
 
@@ -54,6 +56,20 @@ namespace WebBrowser
 
         }
 
-        
+        private void AddFavourite(object sender, EventArgs e)
+        {     
+            string url = txtBoxURL.Text;
+            string name = txtBoxName.Text;
+
+
+            Database db = new Database();
+            db.NewFavourite(url, name);
+
+            txtBoxURL.Text = "";
+            txtBoxName.Text = "";
+
+            PopulateFavouriteList();
+        }
+
     }
 }

@@ -35,8 +35,8 @@ namespace WebBrowser
             this.btnDeleteFav = new System.Windows.Forms.Button();
             this.btnNewFav = new System.Windows.Forms.Button();
             this.btnEditFav = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBoxName = new System.Windows.Forms.TextBox();
+            this.txtBoxURL = new System.Windows.Forms.TextBox();
             this.lblFavName = new System.Windows.Forms.Label();
             this.lblURL = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -66,7 +66,7 @@ namespace WebBrowser
             // columnName
             // 
             this.columnName.Text = "Name";
-            this.columnName.Width = 150;
+            this.columnName.Width = 178;
             // 
             // btnDeleteFav
             // 
@@ -85,6 +85,7 @@ namespace WebBrowser
             this.btnNewFav.TabIndex = 2;
             this.btnNewFav.Text = "ADD";
             this.btnNewFav.UseVisualStyleBackColor = true;
+            this.btnNewFav.Click += new System.EventHandler(this.AddFavourite);
             // 
             // btnEditFav
             // 
@@ -95,21 +96,21 @@ namespace WebBrowser
             this.btnEditFav.Text = "EDIT SELECTED";
             this.btnEditFav.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // txtBoxName
             // 
-            this.textBox2.Location = new System.Drawing.Point(384, 37);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(199, 32);
-            this.textBox2.TabIndex = 5;
+            this.txtBoxName.Location = new System.Drawing.Point(384, 37);
+            this.txtBoxName.Multiline = true;
+            this.txtBoxName.Name = "txtBoxName";
+            this.txtBoxName.Size = new System.Drawing.Size(199, 32);
+            this.txtBoxName.TabIndex = 5;
             // 
-            // textBox1
+            // txtBoxURL
             // 
-            this.textBox1.Location = new System.Drawing.Point(589, 37);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 32);
-            this.textBox1.TabIndex = 6;
+            this.txtBoxURL.Location = new System.Drawing.Point(589, 37);
+            this.txtBoxURL.Multiline = true;
+            this.txtBoxURL.Name = "txtBoxURL";
+            this.txtBoxURL.Size = new System.Drawing.Size(199, 32);
+            this.txtBoxURL.TabIndex = 6;
             // 
             // lblFavName
             // 
@@ -136,8 +137,8 @@ namespace WebBrowser
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblURL);
             this.Controls.Add(this.lblFavName);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtBoxURL);
+            this.Controls.Add(this.txtBoxName);
             this.Controls.Add(this.btnEditFav);
             this.Controls.Add(this.btnNewFav);
             this.Controls.Add(this.btnDeleteFav);
@@ -156,8 +157,8 @@ namespace WebBrowser
         private System.Windows.Forms.Button btnDeleteFav;
         private System.Windows.Forms.Button btnNewFav;
         private System.Windows.Forms.Button btnEditFav;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxName;
+        private System.Windows.Forms.TextBox txtBoxURL;
         private System.Windows.Forms.Label lblFavName;
         private System.Windows.Forms.Label lblURL;
         private System.Windows.Forms.ColumnHeader columnURL;

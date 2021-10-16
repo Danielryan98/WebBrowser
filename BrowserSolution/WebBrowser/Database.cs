@@ -18,7 +18,7 @@ namespace WebBrowser
 
                 SQLiteCommand writeSQL;
                 writeSQL = connection.CreateCommand();
-                writeSQL.CommandText = "INSERT INTO Favourites(TITLE, URL) VALUES (@url, @title)";
+                writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES (@url, @title)";
                 writeSQL.Parameters.AddWithValue("@url", url);
                 writeSQL.Parameters.AddWithValue("@title", title);
                 writeSQL.ExecuteNonQuery();

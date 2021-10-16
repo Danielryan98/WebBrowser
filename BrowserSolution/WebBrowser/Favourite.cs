@@ -13,12 +13,7 @@ namespace WebBrowser
         public string URL { get; set; }
         public string TITLE { get; set; }
 
-        public void NewFavourite(int urlId, string url, string title)
-        {
-            URL_ID = urlId;
-            URL = url;
-            TITLE = title;
-        }
+        
 
     }
 }

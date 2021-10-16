@@ -18,7 +18,7 @@ namespace WebBrowser
 
                 SQLiteCommand writeSQL;
                 writeSQL = connection.CreateCommand();
-                writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES (@url, @title)";
+                writeSQL.CommandText = "INSERT INTO Favourites(TITLE, URL) VALUES (@url, @title)";
                 writeSQL.Parameters.AddWithValue("@url", url);
                 writeSQL.Parameters.AddWithValue("@title", title);
                 writeSQL.ExecuteNonQuery();
@@ -27,7 +27,7 @@ namespace WebBrowser
             }
         }
 
-        public List<Favourite> ReadFavourites()
+        public Dictionary<string, string> ReadFavourites()
         {
            
 
@@ -36,8 +36,8 @@ namespace WebBrowser
 
                 connection.Open();
 
+                Dictionary<string, string> favDict = new Dictionary<string, string>();
 
-                List<Favourite> favList = new List<Favourite>();
                 SQLiteDataReader readSQL;
                 SQLiteCommand getSQLData;
                 getSQLData = connection.CreateCommand();
@@ -45,13 +45,13 @@ namespace WebBrowser
                 readSQL = getSQLData.ExecuteReader();
                 while (readSQL.Read())
                 {
-                    favList.Add(new Favourite() { URL = readSQL["URL"].ToString(), TITLE = readSQL["TITLE"].ToString() });
+                    favDict.Add(readSQL["URL"].ToString(), readSQL["TITLE"].ToString());
 
                 }
                 
 
                 connection.Close();
-                return favList;
+                return favDict;
             }
 
         }

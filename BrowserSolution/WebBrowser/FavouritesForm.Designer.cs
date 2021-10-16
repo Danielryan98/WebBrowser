@@ -30,6 +30,8 @@ namespace WebBrowser
         private void InitializeComponent()
         {
             this.favouritesListView = new System.Windows.Forms.ListView();
+            this.columnURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnDeleteFav = new System.Windows.Forms.Button();
             this.btnNewFav = new System.Windows.Forms.Button();
             this.btnEditFav = new System.Windows.Forms.Button();
@@ -41,15 +43,30 @@ namespace WebBrowser
             // 
             // favouritesListView
             // 
+            this.favouritesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnURL,
+            this.columnName});
             this.favouritesListView.HideSelection = false;
+            this.favouritesListView.LabelEdit = true;
             this.favouritesListView.Location = new System.Drawing.Point(13, 12);
             this.favouritesListView.MultiSelect = false;
             this.favouritesListView.Name = "favouritesListView";
             this.favouritesListView.Size = new System.Drawing.Size(353, 426);
             this.favouritesListView.TabIndex = 0;
             this.favouritesListView.UseCompatibleStateImageBehavior = false;
-            this.favouritesListView.View = System.Windows.Forms.View.List;
-            this.favouritesListView.ItemActivate += new System.EventHandler(this.GetFavourite);
+            this.favouritesListView.View = System.Windows.Forms.View.Details;
+            this.favouritesListView.BeforeLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.favouritesListView_BeforeLabelEdit);
+            this.favouritesListView.DoubleClick += new System.EventHandler(this.GetFavourite);
+            // 
+            // columnURL
+            // 
+            this.columnURL.Text = "URL";
+            this.columnURL.Width = 170;
+            // 
+            // columnName
+            // 
+            this.columnName.Text = "Name";
+            this.columnName.Width = 150;
             // 
             // btnDeleteFav
             // 
@@ -143,5 +160,7 @@ namespace WebBrowser
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lblFavName;
         private System.Windows.Forms.Label lblURL;
+        private System.Windows.Forms.ColumnHeader columnURL;
+        private System.Windows.Forms.ColumnHeader columnName;
     }
 }

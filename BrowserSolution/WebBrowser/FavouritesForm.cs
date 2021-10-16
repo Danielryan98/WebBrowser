@@ -26,18 +26,34 @@ namespace WebBrowser
         private void PopulateFavouriteList()
         {
             Database db = new Database();
-            List<Favourite> favList = db.ReadFavourites();
+            Dictionary<string, string> favDict = db.ReadFavourites();
 
-            for (int i = 0; i < favList.Count; i++)
+            for (int i = 0; i < favDict.Count; i++)
             {
-                favouritesListView.Items.Add(favList[i].TITLE + " " + favList[i].URL);
+                ListViewItem item = new ListViewItem();
+                item.Text = favDict.ElementAt(i).Key;
+                item.SubItems.Add(favDict.ElementAt(i).Value);
+                
+                favouritesListView.Items.Add(item);
             }
         }
 
+        public string ReturnURL { get; set; }
+
         private void GetFavourite(object sender, EventArgs e)
         {
-            string favURL = favouritesListView.SelectedItems.ToString();
             
+            string favURL = favouritesListView.SelectedItems[0].Text;
+            ReturnURL = favURL;
+            this.Close();
         }
+
+        private void favouritesListView_BeforeLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            string origString = favouritesListView.SelectedItems.ToString();
+
+        }
+
+        
     }
 }

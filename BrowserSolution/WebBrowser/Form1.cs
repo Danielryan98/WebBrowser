@@ -80,7 +80,7 @@ namespace WebBrowser
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
         static readonly HttpClient client = new HttpClient();
 
-        async Task Search(String address)
+        public async Task Search(String address)
         {
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
@@ -123,6 +123,8 @@ namespace WebBrowser
         {
             FavouritesForm favPage = new FavouritesForm();
             DialogResult dialogresult = favPage.ShowDialog();
+            searchBar.Text = favPage.ReturnURL;
+            Search(favPage.ReturnURL);
            
 
         }

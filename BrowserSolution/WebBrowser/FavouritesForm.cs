@@ -52,15 +52,21 @@ namespace WebBrowser
 
         private void EditFavouriteName(object sender, EventArgs e)
         {
-            ListViewItem favourite = favouritesListView.SelectedItems[0];
+            try
+            {
+                ListViewItem favourite = favouritesListView.SelectedItems[0];
 
-            string originalURL = favourite.SubItems[0].Text;
-            string originalName = favourite.SubItems[1].Text;
+                string originalURL = favourite.SubItems[0].Text;
+                string originalName = favourite.SubItems[1].Text;
 
-            lblUpdateName.Text = originalName;
-            lblUpdateURL.Text = originalURL;
-            txtBoxUpdateName.Text = originalName;
-            txtBoxUpdateURL.Text = originalURL;
+                lblUpdateName.Text = originalName;
+                lblUpdateURL.Text = originalURL;
+                txtBoxUpdateName.Text = originalName;
+                txtBoxUpdateURL.Text = originalURL;
+            } catch
+            {
+                Console.WriteLine("Need to write exception for no favourite selected to edit");
+            }
         }
 
         private void AddFavourite(object sender, EventArgs e)
@@ -91,7 +97,7 @@ namespace WebBrowser
 
             txtBoxUpdateName.Text = "";
             txtBoxUpdateURL.Text = "";
-            lblUpdateName.Text = "Name";
+            lblUpdateName.Text = "NAME";
             lblUpdateURL.Text = "URL";
 
             PopulateFavouriteList();
@@ -99,15 +105,20 @@ namespace WebBrowser
 
         private void DeleteFavourite(object sender, EventArgs e)
         {
-            ListViewItem favourite = favouritesListView.SelectedItems[0];
+            try
+            {
+                ListViewItem favourite = favouritesListView.SelectedItems[0];
 
-            string favURL = favourite.SubItems[0].Text;
-            string favName = favourite.SubItems[1].Text;
+                string favURL = favourite.SubItems[0].Text;
 
-            Database db = new Database();
-            db.DeleteFavourite(favURL, favName);
+                Database db = new Database();
+                db.DeleteFavourite(favURL);
 
-            PopulateFavouriteList();
+                PopulateFavouriteList();
+            } catch
+            {
+                Console.WriteLine("Need to write exception for no favourite selected to delete");
+            }
         }
 
     }

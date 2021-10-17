@@ -50,6 +50,7 @@ namespace WebBrowser
             this.historyListView.TabIndex = 1;
             this.historyListView.UseCompatibleStateImageBehavior = false;
             this.historyListView.View = System.Windows.Forms.View.Details;
+            this.historyListView.DoubleClick += new System.EventHandler(this.LoadFromHistory);
             // 
             // columnURL
             // 
@@ -69,6 +70,7 @@ namespace WebBrowser
             this.btnEraseSelected.TabIndex = 4;
             this.btnEraseSelected.Text = "ERASE SELECTED";
             this.btnEraseSelected.UseVisualStyleBackColor = true;
+            this.btnEraseSelected.Click += new System.EventHandler(this.DeleteHistoryEntry);
             // 
             // btnEraseAll
             // 
@@ -78,6 +80,7 @@ namespace WebBrowser
             this.btnEraseAll.TabIndex = 5;
             this.btnEraseAll.Text = "ERASE ALL";
             this.btnEraseAll.UseVisualStyleBackColor = true;
+            this.btnEraseAll.Click += new System.EventHandler(this.DeleteAllHistory);
             // 
             // HistoryForm
             // 

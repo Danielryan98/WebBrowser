@@ -84,7 +84,7 @@ namespace WebBrowser
             }
         }
 
-        public void DeleteFavourite(string url, string name)
+        public void DeleteFavourite(string url)
         {
             using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
             {
@@ -152,6 +152,44 @@ namespace WebBrowser
                 {
                     Console.WriteLine("Need to add exception for duplicate value");
                 }
+
+                connection.Close();
+            }
+        }
+
+        public void DeleteHistoryEntry(string url)
+        {
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\History.db; version = 3;"))
+            {
+
+                connection.Open();
+
+                SQLiteCommand writeSQL;
+                writeSQL = connection.CreateCommand();
+
+                writeSQL.CommandText = "DELETE FROM History WHERE URL = @url";
+
+                writeSQL.Parameters.AddWithValue("@url", url);
+
+                writeSQL.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }
+
+        public void DeleteAllHistory()
+        {
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\History.db; version = 3;"))
+            {
+
+                connection.Open();
+
+                SQLiteCommand writeSQL;
+                writeSQL = connection.CreateCommand();
+
+                writeSQL.CommandText = "DELETE FROM History";
+
+                writeSQL.ExecuteNonQuery();
 
                 connection.Close();
             }

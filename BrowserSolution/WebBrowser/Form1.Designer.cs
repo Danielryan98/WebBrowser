@@ -156,8 +156,9 @@ namespace WebBrowser
             // menuHistory
             // 
             this.menuHistory.Name = "menuHistory";
-            this.menuHistory.Size = new System.Drawing.Size(155, 22);
+            this.menuHistory.Size = new System.Drawing.Size(180, 22);
             this.menuHistory.Text = "History";
+            this.menuHistory.Click += new System.EventHandler(this.ActivateHistoryPage);
             // 
             // menuHomePage
             // 
@@ -165,7 +166,7 @@ namespace WebBrowser
             this.menuSetHomePage,
             this.btnSetHomePage});
             this.menuHomePage.Name = "menuHomePage";
-            this.menuHomePage.Size = new System.Drawing.Size(155, 22);
+            this.menuHomePage.Size = new System.Drawing.Size(180, 22);
             this.menuHomePage.Text = "Set Home Page";
             // 
             // menuSetHomePage
@@ -184,7 +185,7 @@ namespace WebBrowser
             // favouritesToolStripMenuItem
             // 
             this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
-            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.favouritesToolStripMenuItem.Text = "Favourites";
             this.favouritesToolStripMenuItem.Click += new System.EventHandler(this.ActivateFavouritesPage);
             // 

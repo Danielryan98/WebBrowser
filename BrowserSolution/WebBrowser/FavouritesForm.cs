@@ -50,10 +50,17 @@ namespace WebBrowser
             this.Close();
         }
 
-        private void favouritesListView_BeforeLabelEdit(object sender, LabelEditEventArgs e)
+        private void EditFavouriteName(object sender, EventArgs e)
         {
-            string origString = favouritesListView.SelectedItems.ToString();
+            ListViewItem favourite = favouritesListView.SelectedItems[0];
 
+            string originalURL = favourite.SubItems[0].Text;
+            string originalName = favourite.SubItems[1].Text;
+
+            lblUpdateName.Text = originalName;
+            lblUpdateURL.Text = originalURL;
+            txtBoxUpdateName.Text = originalName;
+            txtBoxUpdateURL.Text = originalURL;
         }
 
         private void AddFavourite(object sender, EventArgs e)
@@ -67,6 +74,38 @@ namespace WebBrowser
 
             txtBoxURL.Text = "";
             txtBoxName.Text = "";
+
+            PopulateFavouriteList();
+        }
+
+        private void UpdateFavourite(object sender, EventArgs e)
+        {
+            string originalURL = lblUpdateURL.Text;
+            string originalName = lblUpdateName.Text;
+
+            string newURL = txtBoxUpdateURL.Text;
+            string newName = txtBoxUpdateName.Text;
+
+            Database db = new Database();
+            db.UpdateFavourite(originalURL, originalName, newURL, newName);
+
+            txtBoxUpdateName.Text = "";
+            txtBoxUpdateURL.Text = "";
+            lblUpdateName.Text = "Name";
+            lblUpdateURL.Text = "URL";
+
+            PopulateFavouriteList();
+        }
+
+        private void DeleteFavourite(object sender, EventArgs e)
+        {
+            ListViewItem favourite = favouritesListView.SelectedItems[0];
+
+            string favURL = favourite.SubItems[0].Text;
+            string favName = favourite.SubItems[1].Text;
+
+            Database db = new Database();
+            db.DeleteFavourite(favURL, favName);
 
             PopulateFavouriteList();
         }

@@ -9,9 +9,7 @@ namespace WebBrowser
     class Favourite
     {
 
-        public int URL_ID { get; set; }
-        public string URL { get; set; }
-        public string TITLE { get; set; }
+      
 
         
 

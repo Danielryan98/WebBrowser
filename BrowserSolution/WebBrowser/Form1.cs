@@ -94,6 +94,8 @@ namespace WebBrowser
                 currentPageAddress = address;
                 textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
                 response.EnsureSuccessStatusCode();
+                Database db = new Database();
+                db.AddHistory(address, textBoxPageTitle.Text);
             }
             catch (HttpRequestException e)
             {
@@ -135,7 +137,16 @@ namespace WebBrowser
             db.NewFavourite(currentPageAddress, textBoxPageTitle.Text);
         }
 
-        
+        private void ActivateHistoryPage(object sender, EventArgs e)
+        {
+            HistoryForm historyPage = new HistoryForm();
+            DialogResult dialogresult = historyPage.ShowDialog();
+            searchBar.Text = historyPage.ReturnURL;
+            Search(historyPage.ReturnURL);
+
+
+        }
+
 
     }
 

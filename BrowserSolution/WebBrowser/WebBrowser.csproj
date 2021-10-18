@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BulkObject.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="FavouritesForm.cs">
       <SubType>Form</SubType>

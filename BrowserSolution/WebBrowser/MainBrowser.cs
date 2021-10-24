@@ -6,10 +6,12 @@ using System.Windows.Forms;
 using System.Net.Http; //needed for searching URL
 using System.Text.RegularExpressions; //needed for page title
 using System.IO; //needed for read write of files
+using System.Linq;
 using System.Diagnostics;
 
 namespace WebBrowser
 {
+    
     public partial class MainBrowser : Form
     {
         static Stack<String> backStack = new Stack<String>();
@@ -45,16 +47,16 @@ namespace WebBrowser
         {
             String address = searchBar.Text;
             if(address != "")
-            {               
-                await Search(address);
-            }
+            {
+               await AttemptSearch(address);             
+            } 
             
         }
 
         private async void Refresh(object sender, EventArgs e)
         {
             isRefresh = true;
-            await Search(currentPageAddress);
+            await AttemptSearch(currentPageAddress);
             isRefresh = false;
         }
 
@@ -64,12 +66,12 @@ namespace WebBrowser
             {
                 isBackwardSearch = true;                
                 backwardSearchAddress = backStack.Pop();
-                await Search(backwardSearchAddress);
+                await AttemptSearch(backwardSearchAddress);
                 isBackwardSearch = false;
             } else
             {
                 isBackwardSearch = false;
-                Console.WriteLine("No pages to go backwards to");
+                MessageBox.Show("No pages to go backwards to.");
             } //Was going to use a try catch but then theres no way to be sure of poppable backstack, so would would current page address an then fail at pop of empty back stack
 
         }
@@ -80,13 +82,13 @@ namespace WebBrowser
             {
                 isForwardSearch = true;
                 forwardSearchAddress = forwardStack.Pop();
-                await Search(forwardSearchAddress);
+                await AttemptSearch(forwardSearchAddress);
                 isForwardSearch = false;
             }
             else
             {
                 isForwardSearch = false;
-                Console.WriteLine("No pages to go forward to");
+                MessageBox.Show("No pages to go forward to."); //if you click forward fast enough you can activate this message
             }
 
         }
@@ -159,9 +161,9 @@ namespace WebBrowser
                     statusBox.Text = "";
                     backStack.Push(currentPageAddress);
                     CheckStacks();
-                } catch
+                } catch (HttpRequestException e)
                 {
-
+                    MessageBox.Show(e.Message);
                 }
 
             }
@@ -175,8 +177,7 @@ namespace WebBrowser
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
+                    MessageBox.Show(e.Message);
                 }
             } else if(isForwardSearch == true)
             {
@@ -188,8 +189,7 @@ namespace WebBrowser
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
+                    MessageBox.Show(e.Message);
                 }
             } else if (isFormLoad == true)
             {
@@ -201,8 +201,7 @@ namespace WebBrowser
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
+                    MessageBox.Show(e.Message);
                 }
             } else if (isRefresh == true)
             {
@@ -214,8 +213,7 @@ namespace WebBrowser
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
+                    MessageBox.Show(e.Message);
                 }
             } else
             {
@@ -228,8 +226,7 @@ namespace WebBrowser
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
+                    MessageBox.Show(e.Message);
                 }
             }
         }
@@ -246,7 +243,7 @@ namespace WebBrowser
 
         private async void Home(object sender, EventArgs e)
         {
-            await Search(homePage);
+            await AttemptSearch(homePage);
 
         }
 
@@ -258,9 +255,9 @@ namespace WebBrowser
             if(favPage.ReturnURL != null)
             {
                 searchBar.Text = favPage.ReturnURL;
-                await Search(favPage.ReturnURL);
+                await AttemptSearch(favPage.ReturnURL);
                 favPage.ReturnURL = null;
-            }            
+            }    
         }
 
         private void NewFavourite(object sender, EventArgs e)
@@ -276,7 +273,7 @@ namespace WebBrowser
             if(historyPage.ReturnURL != null)
             {
                 searchBar.Text = historyPage.ReturnURL;
-                await Search(historyPage.ReturnURL);
+                await AttemptSearch(historyPage.ReturnURL);
                 historyPage.ReturnURL = null;
             }
             
@@ -293,7 +290,7 @@ namespace WebBrowser
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 
@@ -306,7 +303,9 @@ namespace WebBrowser
                     {
                         while(!reader.EndOfStream)
                         {
-                            await Search(reader.ReadLine());
+
+                            await AttemptSearch(reader.ReadLine());
+                            
                             
                         }
                     }              
@@ -316,6 +315,18 @@ namespace WebBrowser
             }                                
             isBulkDownload = false;
         } 
+
+        private async Task AttemptSearch(string address)
+        {
+            try
+            {
+                await Search(address);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
 
         private void PopulateBulk()
         {
@@ -329,7 +340,8 @@ namespace WebBrowser
             }
         }
 
-     
+        
+       
     }
 
   

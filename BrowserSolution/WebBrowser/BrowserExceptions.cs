@@ -7,10 +7,16 @@ using System.Windows.Forms;
 
 namespace WebBrowser
 {
-    class BrowserExceptions
+    public static class BrowserExceptions
     {
 
+        public class DuplicateURLException : Exception
+        {
+            public DuplicateURLException(string value)
+                : base(String.Format("URL" + value + " already exists"))
+            {
 
-       
+            }
+        }
     }
 }

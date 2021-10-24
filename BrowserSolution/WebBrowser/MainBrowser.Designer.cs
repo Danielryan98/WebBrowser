@@ -165,7 +165,6 @@ namespace WebBrowser
             // 
             // menuSetHomePage
             // 
-            this.menuSetHomePage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuSetHomePage.Name = "menuSetHomePage";
             this.menuSetHomePage.Size = new System.Drawing.Size(100, 23);
             // 
@@ -212,10 +211,11 @@ namespace WebBrowser
             this.htmlTextBox.Location = new System.Drawing.Point(12, 63);
             this.htmlTextBox.Multiline = true;
             this.htmlTextBox.Name = "htmlTextBox";
-            this.htmlTextBox.Size = new System.Drawing.Size(960, 468);
+            this.htmlTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.htmlTextBox.Size = new System.Drawing.Size(963, 468);
             this.htmlTextBox.TabIndex = 15;
             // 
-            // Form1
+            // MainBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -233,7 +233,7 @@ namespace WebBrowser
             this.Controls.Add(this.searchBar);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainBrowser";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);

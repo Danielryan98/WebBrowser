@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace WebBrowser
 {
@@ -13,20 +14,35 @@ namespace WebBrowser
         {
             using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
             {
-
-                connection.Open();
                 try
                 {
-                    SQLiteCommand writeSQL;
-                    writeSQL = connection.CreateCommand();
-                    writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES (@url, @title)";
-                    writeSQL.Parameters.AddWithValue("@url", url);
-                    writeSQL.Parameters.AddWithValue("@title", title);
-                    writeSQL.ExecuteNonQuery();
+                    connection.Open();
+                    try
+                    {
+                        SQLiteCommand writeSQL;
+                        writeSQL = connection.CreateCommand();
+                        writeSQL.CommandText = "INSERT INTO Favourites(URL, TITLE) VALUES (@url, @title)";
+                        writeSQL.Parameters.AddWithValue("@url", url);
+                        writeSQL.Parameters.AddWithValue("@title", title);
+                            try
+                            {
+                                writeSQL.ExecuteNonQuery();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Favourite URL already exists");
+                            }                      
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Not sure");
+                    }
                 } catch
                 {
-                    Console.WriteLine("Need to add exception for duplicate value");
+                    MessageBox.Show("Can't connect to database");
                 }
+                
+                
 
                 connection.Close();
             }

@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tab.cs" />
     <EmbeddedResource Include="FavouritesForm.resx">
       <DependentUpon>FavouritesForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -34,7 +34,6 @@ namespace WebBrowser
             this.btnForward = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.htmlTextBox = new System.Windows.Forms.TextBox();
             this.btnFavourite = new System.Windows.Forms.Button();
             this.statusBox = new System.Windows.Forms.TextBox();
             this.textBoxPageTitle = new System.Windows.Forms.TextBox();
@@ -48,6 +47,7 @@ namespace WebBrowser
             this.btnHome = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileBulk = new System.Windows.Forms.OpenFileDialog();
+            this.htmlTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,14 +97,6 @@ namespace WebBrowser
             this.btnSearch.Text = "GO";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearchPressed);
-            // 
-            // htmlTextBox
-            // 
-            this.htmlTextBox.Location = new System.Drawing.Point(0, 63);
-            this.htmlTextBox.Multiline = true;
-            this.htmlTextBox.Name = "htmlTextBox";
-            this.htmlTextBox.Size = new System.Drawing.Size(984, 468);
-            this.htmlTextBox.TabIndex = 6;
             // 
             // btnFavourite
             // 
@@ -158,7 +150,7 @@ namespace WebBrowser
             // menuHistory
             // 
             this.menuHistory.Name = "menuHistory";
-            this.menuHistory.Size = new System.Drawing.Size(180, 22);
+            this.menuHistory.Size = new System.Drawing.Size(155, 22);
             this.menuHistory.Text = "History";
             this.menuHistory.Click += new System.EventHandler(this.ActivateHistoryPage);
             // 
@@ -168,7 +160,7 @@ namespace WebBrowser
             this.menuSetHomePage,
             this.btnSetHomePage});
             this.menuHomePage.Name = "menuHomePage";
-            this.menuHomePage.Size = new System.Drawing.Size(180, 22);
+            this.menuHomePage.Size = new System.Drawing.Size(155, 22);
             this.menuHomePage.Text = "Set Home Page";
             // 
             // menuSetHomePage
@@ -187,7 +179,7 @@ namespace WebBrowser
             // favouritesToolStripMenuItem
             // 
             this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
-            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.favouritesToolStripMenuItem.Text = "Favourites";
             this.favouritesToolStripMenuItem.Click += new System.EventHandler(this.ActivateFavouritesPage);
             // 
@@ -215,17 +207,25 @@ namespace WebBrowser
             // 
             this.openFileBulk.FileName = "bulk.txt";
             // 
+            // htmlTextBox
+            // 
+            this.htmlTextBox.Location = new System.Drawing.Point(12, 63);
+            this.htmlTextBox.Multiline = true;
+            this.htmlTextBox.Name = "htmlTextBox";
+            this.htmlTextBox.Size = new System.Drawing.Size(960, 468);
+            this.htmlTextBox.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.htmlTextBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.textBoxPageTitle);
             this.Controls.Add(this.statusBox);
             this.Controls.Add(this.btnFavourite);
-            this.Controls.Add(this.htmlTextBox);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnForward);
@@ -249,7 +249,6 @@ namespace WebBrowser
         private System.Windows.Forms.Button btnForward;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox htmlTextBox;
         private System.Windows.Forms.Button btnFavourite;
         private System.Windows.Forms.TextBox statusBox;
         private System.Windows.Forms.TextBox textBoxPageTitle;
@@ -263,6 +262,7 @@ namespace WebBrowser
         private System.Windows.Forms.ToolStripMenuItem favouritesToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileBulk;
+        private System.Windows.Forms.TextBox htmlTextBox;
     }
 }
 

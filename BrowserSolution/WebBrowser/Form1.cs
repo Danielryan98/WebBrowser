@@ -19,8 +19,14 @@ namespace WebBrowser
         static Stack<String> backStack = new Stack<String>();
         static Stack<String> forwardStack = new Stack<String>();
         static String currentPageAddress = "";
+        static String backwardSearchAddress = "";
+        static String forwardSearchAddress = "";
         static String homePage = "";
         bool isBulkDownload = false;
+        bool isForwardSearch = false;
+        bool isBackwardSearch = false;
+        bool isFormLoad = false;
+        bool isRefresh = false;
 
         public Form1()
         {
@@ -34,16 +40,16 @@ namespace WebBrowser
             homePage = sr.ReadLine();
             sr.Close();
             menuSetHomePage.Text = homePage;
+            isFormLoad = true;
             await Search(homePage);
-
+            isFormLoad = false;
         }
 
         private async void btnSearchPressed(object sender, EventArgs e)
         {
             String address = searchBar.Text;
             if(address != "")
-            {
-                backStack.Push(currentPageAddress);
+            {               
                 await Search(address);
             }
             
@@ -51,18 +57,22 @@ namespace WebBrowser
 
         private async void Refresh(object sender, EventArgs e)
         {
+            isRefresh = true;
             await Search(currentPageAddress);
+            isRefresh = false;
         }
 
         private async void Back(object sender, EventArgs e)
         {
             if (backStack.Count != 0)
             {
-                forwardStack.Push(currentPageAddress);
-                currentPageAddress = backStack.Pop();
-                await Search(currentPageAddress);
+                isBackwardSearch = true;                
+                backwardSearchAddress = backStack.Pop();
+                await Search(backwardSearchAddress);
+                isBackwardSearch = false;
             } else
             {
+                isBackwardSearch = false;
                 Console.WriteLine("No pages to go backwards to");
             } //Was going to use a try catch but then theres no way to be sure of poppable backstack, so would would current page address an then fail at pop of empty back stack
 
@@ -72,12 +82,14 @@ namespace WebBrowser
         {
             if (forwardStack.Count != 0)
             {
-                backStack.Push(currentPageAddress);
-                currentPageAddress = forwardStack.Pop();
-                await Search(currentPageAddress);
+                isForwardSearch = true;
+                forwardSearchAddress = forwardStack.Pop();
+                await Search(forwardSearchAddress);
+                isForwardSearch = false;
             }
             else
             {
+                isForwardSearch = false;
                 Console.WriteLine("No pages to go forward to");
             }
 
@@ -92,39 +104,129 @@ namespace WebBrowser
         {
             if (isBulkDownload == true)
             {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(address);
+                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+                    
+                    Byte[] txt = new UTF8Encoding(true).GetBytes(responseBody);
+                    bulkList.Add(new BulkObject() { accessResponseCode = (int)response.StatusCode + " " + response.StatusCode.ToString(), accessUrl = address, accessUrlBytes = txt });
+                    /*htmlTextBox.Text += bulkObj;*/
+                    Debug.WriteLine("gang");
+                } catch
+                {
 
-                HttpResponseMessage response = await client.GetAsync(address);
-                string responseBody = await response.Content.ReadAsStringAsync();
-                response.EnsureSuccessStatusCode();
-                /*BulkObject bulkObj = new BulkObject();
-                bulkObj.accessResponseCode = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                bulkObj.accessUrl = address;
-                bulkObj.accessUrlBytes = Encoding.ASCII.GetBytes(responseBody);*/
-                Byte[] txt = new UTF8Encoding(true).GetBytes(responseBody);
-
-
-                bulkList.Add(new BulkObject() { accessResponseCode = (int)response.StatusCode + " " + response.StatusCode.ToString(), accessUrl = address, accessUrlBytes = txt}) ;
-
-                /*htmlTextBox.Text += bulkObj;*/
-                Debug.WriteLine("gang");
+                }
 
             }
-            else
+            else if(isBackwardSearch == true)
             {
                 // Call asynchronous network methods in a try/catch block to handle exceptions.
                 try
                 {
+                    forwardStack.Push(currentPageAddress);
                     HttpResponseMessage response = await client.GetAsync(address);
                     statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    // Above three lines can be replaced with new helper method below
-                    // string responseBody = await client.GetStringAsync(uri);
+                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
                     htmlTextBox.Text = responseBody;
                     currentPageAddress = address;
                     textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                    response.EnsureSuccessStatusCode();
+        
                     Database db = new Database();
                     db.AddHistory(address, textBoxPageTitle.Text);
+            
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                }
+            } else if(isForwardSearch == true)
+            {
+                try
+                {
+                    backStack.Push(currentPageAddress);
+                    HttpResponseMessage response = await client.GetAsync(address);
+                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
+                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+                    htmlTextBox.Text = responseBody;
+                    currentPageAddress = address;
+                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+
+                    Database db = new Database();
+                    db.AddHistory(address, textBoxPageTitle.Text);
+
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                }
+            } else if (isFormLoad == true)
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(address);
+                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
+                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+                    htmlTextBox.Text = responseBody;
+                    currentPageAddress = address;
+                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+
+                    Database db = new Database();
+                    db.AddHistory(address, textBoxPageTitle.Text);
+         
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                }
+            } else if (isRefresh == true)
+            {
+                try
+                {
+                    
+                    HttpResponseMessage response = await client.GetAsync(address);
+                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
+                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+                    htmlTextBox.Text = responseBody;
+                    currentPageAddress = address;
+                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                }
+            } else
+            {
+                try
+                {
+                    forwardStack.Clear();
+                    backStack.Push(currentPageAddress);
+                    HttpResponseMessage response = await client.GetAsync(address);
+                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
+                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+                    htmlTextBox.Text = responseBody;
+                    currentPageAddress = address;
+                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+
+                    Database db = new Database();
+                    db.AddHistory(address, textBoxPageTitle.Text);
+            
+
                 }
                 catch (HttpRequestException e)
                 {
@@ -238,6 +340,7 @@ namespace WebBrowser
             }
         }
 
+     
     }
 
   

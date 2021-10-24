@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -100,6 +96,24 @@ namespace WebBrowser
 
         List<BulkObject> bulkList = new List<BulkObject>();
 
+        public async Task GetResponse(String address)
+        {
+            HttpResponseMessage response = await client.GetAsync(address);
+            statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
+            byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+            string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+            htmlTextBox.Text = responseBody;
+            currentPageAddress = address;
+            searchBar.Text = address;
+            textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+            if(isRefresh == false)
+            {
+                Database db = new Database();
+                db.AddHistory(address, textBoxPageTitle.Text);
+            }
+            
+        }
+
         public async Task Search(String address)
         {
             if (isBulkDownload == true)
@@ -112,8 +126,10 @@ namespace WebBrowser
                     
                     Byte[] txt = new UTF8Encoding(true).GetBytes(responseBody);
                     bulkList.Add(new BulkObject() { accessResponseCode = (int)response.StatusCode + " " + response.StatusCode.ToString(), accessUrl = address, accessUrlBytes = txt });
-                    /*htmlTextBox.Text += bulkObj;*/
-                    Debug.WriteLine("gang");
+                    textBoxPageTitle.Text = "";
+                    searchBar.Text = "";
+                    statusBox.Text = "";
+                    backStack.Push(currentPageAddress);
                 } catch
                 {
 
@@ -126,18 +142,7 @@ namespace WebBrowser
                 try
                 {
                     forwardStack.Push(currentPageAddress);
-                    HttpResponseMessage response = await client.GetAsync(address);
-                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
-                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
-                    htmlTextBox.Text = responseBody;
-                    currentPageAddress = address;
-                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-        
-                    Database db = new Database();
-                    db.AddHistory(address, textBoxPageTitle.Text);
-            
-
+                    await GetResponse(address);          
                 }
                 catch (HttpRequestException e)
                 {
@@ -149,18 +154,7 @@ namespace WebBrowser
                 try
                 {
                     backStack.Push(currentPageAddress);
-                    HttpResponseMessage response = await client.GetAsync(address);
-                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
-                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
-                    htmlTextBox.Text = responseBody;
-                    currentPageAddress = address;
-                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-
-                    Database db = new Database();
-                    db.AddHistory(address, textBoxPageTitle.Text);
-
-
+                    await GetResponse(address);
                 }
                 catch (HttpRequestException e)
                 {
@@ -171,16 +165,7 @@ namespace WebBrowser
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(address);
-                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
-                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
-                    htmlTextBox.Text = responseBody;
-                    currentPageAddress = address;
-                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-
-                    Database db = new Database();
-                    db.AddHistory(address, textBoxPageTitle.Text);
+                    await GetResponse(address);
          
 
                 }
@@ -193,15 +178,8 @@ namespace WebBrowser
             {
                 try
                 {
-                    
-                    HttpResponseMessage response = await client.GetAsync(address);
-                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
-                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
-                    htmlTextBox.Text = responseBody;
-                    currentPageAddress = address;
-                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
 
+                    await GetResponse(address);
 
                 }
                 catch (HttpRequestException e)
@@ -215,18 +193,7 @@ namespace WebBrowser
                 {
                     forwardStack.Clear();
                     backStack.Push(currentPageAddress);
-                    HttpResponseMessage response = await client.GetAsync(address);
-                    statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                    byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
-                    string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
-                    htmlTextBox.Text = responseBody;
-                    currentPageAddress = address;
-                    textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-
-                    Database db = new Database();
-                    db.AddHistory(address, textBoxPageTitle.Text);
-            
-
+                    GetResponse(address);         
                 }
                 catch (HttpRequestException e)
                 {
@@ -262,10 +229,7 @@ namespace WebBrowser
                 searchBar.Text = favPage.ReturnURL;
                 await Search(favPage.ReturnURL);
                 favPage.ReturnURL = null;
-            }
-            
-
-
+            }            
         }
 
         private void NewFavourite(object sender, EventArgs e)
@@ -289,9 +253,6 @@ namespace WebBrowser
 
         }
 
-
-
-        List<string> urlList = new List<string>();
         private async void OpenFilePrompt(object sender, EventArgs e)
         {
             isBulkDownload = true;
@@ -321,10 +282,7 @@ namespace WebBrowser
                     PopulateBulk();
                 }
                
-            }
-            
-            
-            
+            }                                
             isBulkDownload = false;
         } 
 
@@ -333,9 +291,9 @@ namespace WebBrowser
             htmlTextBox.Text = "";
             foreach (BulkObject b in bulkList)
             {
-                htmlTextBox.Text += b.accessResponseCode + " ";
-                htmlTextBox.Text += b.accessUrlBytes.Length + " bytes ";
-                htmlTextBox.Text += b.accessUrl;             
+                htmlTextBox.Text += "< " + b.accessResponseCode + " > ";
+                htmlTextBox.Text += "< " + b.accessUrlBytes.Length + " bytes > ";
+                htmlTextBox.Text += "< " + b.accessUrl + " >";             
                 htmlTextBox.Text += Environment.NewLine;
             }
         }

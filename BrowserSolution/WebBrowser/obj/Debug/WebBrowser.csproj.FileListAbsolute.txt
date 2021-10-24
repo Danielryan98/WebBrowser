@@ -22,7 +22,6 @@ C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\Debug\WebBrowser.exe
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\Debug\WebBrowser.pdb
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.csproj.AssemblyReference.cache
-C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.Form1.resources
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.Properties.Resources.resources
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.csproj.GenerateResource.cache
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.csproj.CoreCompileInputs.cache
@@ -43,3 +42,4 @@ C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\Debug\System.Text.Encoding.CodePages.dll
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\bin\Debug\System.Text.Encoding.CodePages.xml
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1NEW\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.MainBrowser.resources

@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace WebBrowser
 {
-    public partial class Form1 : Form
+    public partial class MainBrowser : Form
     {
         static Stack<String> backStack = new Stack<String>();
         static Stack<String> forwardStack = new Stack<String>();
@@ -24,7 +24,7 @@ namespace WebBrowser
         bool isFormLoad = false;
         bool isRefresh = false;
 
-        public Form1()
+        public MainBrowser()
         {
             InitializeComponent();
         }
@@ -91,6 +91,26 @@ namespace WebBrowser
 
         }
 
+
+        private void CheckStacks()
+        {
+            if (forwardStack.Count == 0)
+            {
+                btnForward.Enabled = false;
+            } else
+            {
+                btnForward.Enabled = true;
+            }
+
+            if(backStack.Count == 0)
+            {
+                btnBack.Enabled = false;
+            } else
+            {
+                btnBack.Enabled = true;
+            }
+        }
+
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
         static readonly HttpClient client = new HttpClient();
 
@@ -98,19 +118,27 @@ namespace WebBrowser
 
         public async Task GetResponse(String address)
         {
-            HttpResponseMessage response = await client.GetAsync(address);
-            statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
-            byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
-            string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
-            htmlTextBox.Text = responseBody;
-            currentPageAddress = address;
-            searchBar.Text = address;
-            textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-            if(isRefresh == false)
+          
+            try
             {
-                Database db = new Database();
-                db.AddHistory(address, textBoxPageTitle.Text);
+                HttpResponseMessage response = await client.GetAsync(address);
+                statusBox.Text = (int)response.StatusCode + " " + response.StatusCode.ToString();
+                byte[] responseBodyBytes = await response.Content.ReadAsByteArrayAsync();
+                string responseBody = Encoding.UTF8.GetString(responseBodyBytes);
+                htmlTextBox.Text = responseBody;
+                currentPageAddress = address;
+                searchBar.Text = address;
+                textBoxPageTitle.Text = Regex.Match(responseBody, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                if (isRefresh == false)
+                {
+                    Database db = new Database();
+                    db.AddHistory(address, textBoxPageTitle.Text);
+                }
+            } catch (HttpRequestException e)
+            {
+                MessageBox.Show(e.Message);
             }
+            
             
         }
 
@@ -130,6 +158,7 @@ namespace WebBrowser
                     searchBar.Text = "";
                     statusBox.Text = "";
                     backStack.Push(currentPageAddress);
+                    CheckStacks();
                 } catch
                 {
 
@@ -138,11 +167,11 @@ namespace WebBrowser
             }
             else if(isBackwardSearch == true)
             {
-                // Call asynchronous network methods in a try/catch block to handle exceptions.
                 try
                 {
                     forwardStack.Push(currentPageAddress);
-                    await GetResponse(address);          
+                    await GetResponse(address);
+                    CheckStacks();
                 }
                 catch (HttpRequestException e)
                 {
@@ -155,6 +184,7 @@ namespace WebBrowser
                 {
                     backStack.Push(currentPageAddress);
                     await GetResponse(address);
+                    CheckStacks();
                 }
                 catch (HttpRequestException e)
                 {
@@ -166,7 +196,7 @@ namespace WebBrowser
                 try
                 {
                     await GetResponse(address);
-         
+                    CheckStacks();
 
                 }
                 catch (HttpRequestException e)
@@ -180,7 +210,7 @@ namespace WebBrowser
                 {
 
                     await GetResponse(address);
-
+                    CheckStacks();
                 }
                 catch (HttpRequestException e)
                 {
@@ -193,7 +223,8 @@ namespace WebBrowser
                 {
                     forwardStack.Clear();
                     backStack.Push(currentPageAddress);
-                    GetResponse(address);         
+                    await GetResponse(address);
+                    CheckStacks();
                 }
                 catch (HttpRequestException e)
                 {

@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserExceptions.cs" />
     <Compile Include="BulkObject.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="FavouritesForm.cs">
@@ -79,11 +80,11 @@
     <Compile Include="FavouritesForm.Designer.cs">
       <DependentUpon>FavouritesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainBrowser.Designer.cs">
+      <DependentUpon>MainBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="HistoryForm.cs">
       <SubType>Form</SubType>
@@ -96,8 +97,8 @@
     <EmbeddedResource Include="FavouritesForm.resx">
       <DependentUpon>FavouritesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainBrowser.resx">
+      <DependentUpon>MainBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HistoryForm.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>

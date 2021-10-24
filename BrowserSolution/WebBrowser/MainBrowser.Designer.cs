@@ -1,7 +1,7 @@
 ﻿
 namespace WebBrowser
 {
-    partial class Form1
+    partial class MainBrowser
     {
         /// <summary>
         /// Required designer variable.

@@ -39,7 +39,8 @@ namespace WebBrowser
         {
             /*ReadFavourites();*/ //Could read favourites & history on load as stated in the cw spec, but that isn't necessary for this implementation.
             /*ReadHistory();*/
-            StreamReader sr = new StreamReader("HomePage.txt");
+            String path = Path.GetDirectoryName(Application.StartupPath);
+            StreamReader sr = new StreamReader(Path.Combine(path, "HomePage.txt"));
             homePage = sr.ReadLine();
             sr.Close();
             if(homePage == "")

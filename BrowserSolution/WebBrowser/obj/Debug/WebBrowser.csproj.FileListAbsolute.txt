@@ -70,3 +70,10 @@ C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\ob
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.pdb
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\x64\SQLite.Interop.dll
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\x86\SQLite.Interop.dll
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\WebBrowser.exe.manifest
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\WebBrowser.application
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.exe.manifest
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.application
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\bin\NewFavourites.db
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\bin\NewHistory.db
+C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\bin\HomePage.txt

@@ -20,14 +20,13 @@ namespace WebBrowser
         {
             var connection = new SQLiteConnection(directory);
             connection.Open();
-            SQLiteDataReader readSQL;
             SQLiteCommand getSQLData = connection.CreateCommand();
             getSQLData.CommandText = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = '@name'";
             getSQLData.Parameters.AddWithValue("@name", name);
  
             int numberOfRows = getSQLData.ExecuteNonQuery();
             
-            if(numberOfRows == 0)
+            if(numberOfRows < 1)
             {
                 CreateNewTable(name);
             }
@@ -49,7 +48,7 @@ namespace WebBrowser
                     command.ExecuteNonQuery();
                 }catch
                 {
-                    MessageBox.Show("Table already exists");
+                    
                 }
                 
 
@@ -69,7 +68,7 @@ namespace WebBrowser
                 }
                 catch
                 {
-                    MessageBox.Show("Table already exists");
+                    
                 }
 
                 m_dbConnection.Close();

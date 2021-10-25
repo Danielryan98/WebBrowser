@@ -5,14 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
 
 namespace WebBrowser
 {
     class Database
     {
+
+        string favDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "NewFavourites.db"));
+        string historyDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "NewHistory.db"));
+
         public void NewFavourite(string url, string title)
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewFavourites.db; version=3;"))
             {
                 try
                 {
@@ -52,7 +58,7 @@ namespace WebBrowser
         {
            
 
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewFavourites.db; version=3;"))
             {
 
                 connection.Open();
@@ -79,7 +85,7 @@ namespace WebBrowser
 
         public void UpdateFavourite(string originalURL, string originalName, string newURL, string newName)
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewFavourites.db; version=3;"))
             {
 
                 connection.Open();
@@ -102,7 +108,7 @@ namespace WebBrowser
 
         public void DeleteFavourite(string url)
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\Favourites.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewFavourites.db; version=3;"))
             {
 
                 connection.Open();
@@ -124,7 +130,7 @@ namespace WebBrowser
         {
 
 
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\History.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewHistory.db; version=3;"))
             {
 
                 connection.Open();
@@ -151,7 +157,7 @@ namespace WebBrowser
 
         public void AddHistory(string url, string title)
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\History.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewHistory.db; version=3;"))
             {
 
                 connection.Open();
@@ -175,7 +181,7 @@ namespace WebBrowser
 
         public void DeleteHistoryEntry(string url)
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\History.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewHistory.db; version=3;"))
             {
 
                 connection.Open();
@@ -195,7 +201,7 @@ namespace WebBrowser
 
         public void DeleteAllHistory()
         {
-            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1NEW\\BrowserSolution\\WebBrowser\\bin\\History.db; version = 3;"))
+            using (var connection = new SQLiteConnection("Data Source=C:\\Users\\ryand\\Source\\Repos\\f21sc-2021-22-cw1Night\\BrowserSolution\\WebBrowser\\NewHistory.db; version=3;"))
             {
 
                 connection.Open();

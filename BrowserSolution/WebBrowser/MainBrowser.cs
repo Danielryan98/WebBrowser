@@ -340,8 +340,43 @@ namespace WebBrowser
             }
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.Control | Keys.Right))
+            {
+                Back(sender, new EventArgs());
+            } 
+            else if (e.KeyData == (Keys.Control | Keys.Left))
+            {
+                Forward(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.H))
+            {
+                Home(sender, new EventArgs());
+            }
+            else if (e.KeyData == Keys.Enter)
+            {
+                btnSearchPressed(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.F))
+            {
+                NewFavourite(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.R))
+            {
+                Refresh(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.B))
+            {
+                OpenFilePrompt(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.S))
+            {
+                
+            }
+        }
+
         
-       
     }
 
   

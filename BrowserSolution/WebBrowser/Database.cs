@@ -16,8 +16,70 @@ namespace WebBrowser
         string favDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "NewFavourites.db"));
         string historyDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "NewHistory.db"));
 
+        public void CheckIfTableExists(String name, string directory)
+        {
+            var connection = new SQLiteConnection(directory);
+            connection.Open();
+            SQLiteDataReader readSQL;
+            SQLiteCommand getSQLData = connection.CreateCommand();
+            getSQLData.CommandText = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = '@name'";
+            getSQLData.Parameters.AddWithValue("@name", name);
+ 
+            int numberOfRows = getSQLData.ExecuteNonQuery();
+            
+            if(numberOfRows == 0)
+            {
+                CreateNewTable(name);
+            }
+            connection.Close();
+        }
+
+        public void CreateNewTable(string name)
+        {
+            if(name == "Favourites")
+            {
+                SQLiteConnection m_dbConnection = new SQLiteConnection(favDir);
+                m_dbConnection.Open();
+
+                string sql = "create table Favourites (URL varchar(60) not null primary key, TITLE varchar(60) not null)";
+
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                try
+                {
+                    command.ExecuteNonQuery();
+                }catch
+                {
+                    MessageBox.Show("Table already exists");
+                }
+                
+
+                m_dbConnection.Close();
+
+            } else if(name == "History")
+            {
+                SQLiteConnection m_dbConnection = new SQLiteConnection(historyDir);
+                m_dbConnection.Open();
+
+                string sql = "create table History (URL varchar(60) not null primary key, TITLE varchar(60) not null)";
+
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show("Table already exists");
+                }
+
+                m_dbConnection.Close();
+            }
+            
+        }
+
         public void NewFavourite(string url, string title)
         {
+            CheckIfTableExists("Favourites", favDir);
             using (var connection = new SQLiteConnection(favDir))
             {
                 try
@@ -56,8 +118,8 @@ namespace WebBrowser
 
         public Dictionary<string, string> ReadFavourites()
         {
-           
 
+            CheckIfTableExists("Favourites", favDir);
             using (var connection = new SQLiteConnection(favDir))
             {
 
@@ -85,6 +147,7 @@ namespace WebBrowser
 
         public void UpdateFavourite(string originalURL, string originalName, string newURL, string newName)
         {
+            CheckIfTableExists("Favourites", favDir);
             using (var connection = new SQLiteConnection(favDir))
             {
 
@@ -108,6 +171,7 @@ namespace WebBrowser
 
         public void DeleteFavourite(string url)
         {
+            CheckIfTableExists("Favourites", favDir);
             using (var connection = new SQLiteConnection(favDir))
             {
 
@@ -129,7 +193,7 @@ namespace WebBrowser
         public Dictionary<string, string> ReadHistory()
         {
 
-
+            CheckIfTableExists("History", historyDir);
             using (var connection = new SQLiteConnection(historyDir))
             {
 
@@ -157,6 +221,7 @@ namespace WebBrowser
 
         public void AddHistory(string url, string title)
         {
+            CheckIfTableExists("History", historyDir);
             using (var connection = new SQLiteConnection(historyDir))
             {
 
@@ -181,6 +246,7 @@ namespace WebBrowser
 
         public void DeleteHistoryEntry(string url)
         {
+            CheckIfTableExists("History", historyDir);
             using (var connection = new SQLiteConnection(historyDir))
             {
 
@@ -201,6 +267,7 @@ namespace WebBrowser
 
         public void DeleteAllHistory()
         {
+            CheckIfTableExists("History", historyDir);
             using (var connection = new SQLiteConnection(historyDir))
             {
 

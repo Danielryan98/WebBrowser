@@ -68,7 +68,5 @@ C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\ob
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.csproj.CopyComplete
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.exe
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\obj\Debug\WebBrowser.pdb
-C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\Favourites.db
-C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\History.db
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\x64\SQLite.Interop.dll
 C:\Users\ryand\Source\Repos\f21sc-2021-22-cw1Night\BrowserSolution\WebBrowser\bin\Debug\x86\SQLite.Interop.dll

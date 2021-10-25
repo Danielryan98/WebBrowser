@@ -342,11 +342,11 @@ namespace WebBrowser
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == (Keys.Control | Keys.Right))
+            if (e.KeyData == (Keys.Control | Keys.Left))
             {
                 Back(sender, new EventArgs());
             } 
-            else if (e.KeyData == (Keys.Control | Keys.Left))
+            else if (e.KeyData == (Keys.Control | Keys.Right))
             {
                 Forward(sender, new EventArgs());
             }
@@ -370,9 +370,22 @@ namespace WebBrowser
             {
                 OpenFilePrompt(sender, new EventArgs());
             }
-            else if (e.KeyData == (Keys.Control | Keys.S))
+            else if (e.KeyData == (Keys.Control | Keys.Shift | Keys.H))
             {
-                
+                ActivateHistoryPage(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.Shift | Keys.F))
+            {
+                ActivateFavouritesPage(sender, new EventArgs());
+            }
+            else if (e.KeyData == (Keys.Control | Keys.Alt | Keys.H))
+            {
+                File.WriteAllText("HomePage.txt", String.Empty);
+                StreamWriter sw = new StreamWriter("HomePage.txt");
+                sw.WriteLine(searchBar.Text);
+                sw.Close();
+                homePage = searchBar.Text;
+                menuSetHomePage.Text = homePage;
             }
         }
 

@@ -19,18 +19,19 @@ namespace WebBrowser
 
         private void FavouritesForm_Load(object sender, EventArgs e)
         {
-            PopulateFavouriteList();
+            PopulateFavouriteList(); //Display favourites on form load.
 
         }
 
+        /*Method for displaying the favourites.*/
         private void PopulateFavouriteList()
         {
-            favouritesListView.Items.Clear();
+            favouritesListView.Items.Clear(); //Clear the list to avoid duplication.
 
             Database db = new Database();
-            Dictionary<string, string> favDict = db.ReadFavourites();
+            Dictionary<string, string> favDict = db.ReadFavourites(); //Set a new dictionary equal to the dictionary returned by ReadFavourites in the database class.
 
-            for (int i = 0; i < favDict.Count; i++)
+            for (int i = 0; i < favDict.Count; i++) //For each favourite, append it to the list view.
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = favDict.ElementAt(i).Key;
@@ -40,8 +41,10 @@ namespace WebBrowser
             }
         }
 
+        /*Property for MainBrowser class to use to search for a selected favourite.*/
         public string ReturnURL { get; set; }
 
+        /*Method called on list view item DOUBLE-CLICK. Sets ReturnURL to the favourite url which is then searched for on close of the favourites form by the Main Browser class.*/
         private void GetFavourite(object sender, EventArgs e)
         {
             
@@ -50,25 +53,27 @@ namespace WebBrowser
             this.Close();
         }
 
+        /*Method for enabling the modification of a favourite. Activated on 'EDIT SELECTED' press.*/
         private void EditFavouriteName(object sender, EventArgs e)
         {
             try
             {
-                ListViewItem favourite = favouritesListView.SelectedItems[0];
+                ListViewItem favourite = favouritesListView.SelectedItems[0]; //User must select from the favourite list a favourite that they want to modify.
 
                 string originalURL = favourite.SubItems[0].Text;
                 string originalName = favourite.SubItems[1].Text;
 
-                lblUpdateName.Text = originalName;
+                lblUpdateName.Text = originalName; //Label updates to favourite that is being edited so that the user knows what they're changing.
                 lblUpdateURL.Text = originalURL;
                 txtBoxUpdateName.Text = originalName;
                 txtBoxUpdateURL.Text = originalURL;
             } catch
             {
-                Console.WriteLine("Need to write exception for no favourite selected to edit");
+                MessageBox.Show("Please select a favourite to edit first."); //Triggered on press without a selected favourite.
             }
         }
 
+        /*Method for adding a favourite to the favourites list via the interface shown on the favourites form.*/
         private void AddFavourite(object sender, EventArgs e)
         {     
             string url = txtBoxURL.Text;
@@ -76,48 +81,50 @@ namespace WebBrowser
 
 
             Database db = new Database();
-            db.NewFavourite(url, name);
+            db.NewFavourite(url, name); //Add the favourite to the database.
 
-            txtBoxURL.Text = "";
+            txtBoxURL.Text = ""; //Reset the fields.
             txtBoxName.Text = "";
 
-            PopulateFavouriteList();
+            PopulateFavouriteList(); //Update the favourites list to show the new favourite.
         }
 
+        /*Method for modifying a favourite.*/
         private void UpdateFavourite(object sender, EventArgs e)
         {
             string originalURL = lblUpdateURL.Text;
             string originalName = lblUpdateName.Text;
 
-            string newURL = txtBoxUpdateURL.Text;
-            string newName = txtBoxUpdateName.Text;
+            string newURL = txtBoxUpdateURL.Text; //Get the URL and Name from the text inputs.
+            string newName = txtBoxUpdateName.Text; 
 
             Database db = new Database();
-            db.UpdateFavourite(originalURL, originalName, newURL, newName);
+            db.UpdateFavourite(originalURL, originalName, newURL, newName); //Update the favourite in the database.
 
-            txtBoxUpdateName.Text = "";
+            txtBoxUpdateName.Text = ""; //Reset the fields.
             txtBoxUpdateURL.Text = "";
             lblUpdateName.Text = "NAME";
-            lblUpdateURL.Text = "URL";
+            lblUpdateURL.Text = "URL"; 
 
-            PopulateFavouriteList();
+            PopulateFavouriteList(); //Update the favourites list to show the changes.
         }
 
+        /*Method for removing a favourite, activated on 'DELETE SELECTED'*/
         private void DeleteFavourite(object sender, EventArgs e)
         {
             try
             {
                 ListViewItem favourite = favouritesListView.SelectedItems[0];
 
-                string favURL = favourite.SubItems[0].Text;
+                string favURL = favourite.SubItems[0].Text; //Get the favourite to delete from the selected items text.
 
                 Database db = new Database();
-                db.DeleteFavourite(favURL);
+                db.DeleteFavourite(favURL); //Delete the favourite with corresponding URL from the database.
 
-                PopulateFavouriteList();
+                PopulateFavouriteList(); //Update the favourite list.
             } catch
             {
-                Console.WriteLine("Need to write exception for no favourite selected to delete");
+                MessageBox.Show("Please select a favourite to delete first.");
             }
         }
 

@@ -39,12 +39,11 @@ namespace WebBrowser
         {
             /*ReadFavourites();*/ //Could read favourites & history on load as stated in the cw spec, but that isn't necessary for this implementation.
             /*ReadHistory();*/
-            String path = string.Format("{0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "HomePage.txt"));
-            StreamReader sr = new StreamReader(path);
-            homePage = sr.ReadLine();
-            sr.Close();
+            Database db = new Database();
+            homePage = db.ReadHomePage();
             if(homePage == "")
             {
+                db.UpdateHomePage("http://hw.ac.uk");
                 homePage = "http://hw.ac.uk";
             }
             menuSetHomePage.Text = homePage;
@@ -228,13 +227,11 @@ namespace WebBrowser
             }
         }
 
-        /*Method for setting a new home page, clears the text file and the writes the new homepage to it.*/
+        /*Method for setting a new home page, calls method from database class where the background is handled.*/
         private void SetHomePage(object sender, EventArgs e)
         {
-            File.WriteAllText("HomePage.txt", String.Empty);
-            StreamWriter sw = new StreamWriter("HomePage.txt");
-            sw.WriteLine(menuSetHomePage.Text);
-            sw.Close();
+            Database db = new Database();
+            db.UpdateHomePage(menuSetHomePage.Text);
             homePage = menuSetHomePage.Text;
 
         }
@@ -372,10 +369,8 @@ namespace WebBrowser
             }
             else if (e.KeyData == (Keys.Control | Keys.Alt | Keys.H)) //Sets home page to the current page.
             {
-                File.WriteAllText("HomePage.txt", String.Empty);
-                StreamWriter sw = new StreamWriter("HomePage.txt");
-                sw.WriteLine(currentPageAddress);
-                sw.Close();
+                Database db = new Database();
+                db.UpdateHomePage(currentPageAddress);
                 homePage = currentPageAddress;
                 menuSetHomePage.Text = homePage; //Updates the homepage in the settings.
             }

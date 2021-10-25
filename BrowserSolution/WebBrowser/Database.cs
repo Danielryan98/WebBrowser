@@ -15,6 +15,7 @@ namespace WebBrowser
 
         string favDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "NewFavourites.db"));
         string historyDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "NewHistory.db"));
+        string homePageDir = string.Format("Data Source={0}", Path.Combine(Path.GetDirectoryName(Application.StartupPath), "HomePage.db"));
 
         public void CheckIfTableExists(String name, string directory)
         {
@@ -73,7 +74,26 @@ namespace WebBrowser
 
                 m_dbConnection.Close();
             }
-            
+            else if (name == "HomePage")
+            {
+                SQLiteConnection m_dbConnection = new SQLiteConnection(homePageDir);
+                m_dbConnection.Open();
+
+                string sql = "create table HomePage (URL varchar(60) not null primary key)";
+
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch
+                {
+
+                }
+
+                m_dbConnection.Close();
+            }
+
         }
 
         public void NewFavourite(string url, string title)
@@ -281,6 +301,58 @@ namespace WebBrowser
 
                 connection.Close();
             }
+        }
+
+        public void UpdateHomePage(string newURL)
+        {
+            CheckIfTableExists("HomePage", homePageDir);
+            using (var connection = new SQLiteConnection(homePageDir))
+            {
+
+                connection.Open();
+
+                SQLiteCommand writeSQL;
+                writeSQL = connection.CreateCommand();
+                writeSQL.CommandText = "DELETE FROM HomePage";
+                writeSQL.ExecuteNonQuery();
+
+                SQLiteCommand writeHomeSQL;
+                writeHomeSQL = connection.CreateCommand();
+                writeHomeSQL.CommandText = "INSERT INTO HomePage(URL) VALUES (@url)";
+                writeHomeSQL.Parameters.AddWithValue("@url", newURL);
+                writeHomeSQL.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }
+
+        public String ReadHomePage()
+        {
+
+            CheckIfTableExists("HomePage", homePageDir);
+            using (var connection = new SQLiteConnection(homePageDir))
+            {
+
+                connection.Open();
+
+                string homePage = "";
+
+                SQLiteDataReader readSQL;
+                SQLiteCommand getSQLData;
+                getSQLData = connection.CreateCommand();
+                getSQLData.CommandText = "SELECT * FROM HomePage";
+                readSQL = getSQLData.ExecuteReader();
+                while (readSQL.Read())
+                {
+                    homePage = readSQL["URL"].ToString();
+
+                }
+
+
+                connection.Close();
+                return homePage;
+            }
+
         }
     }
 }

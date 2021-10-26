@@ -291,6 +291,7 @@ namespace WebBrowser
                 openFileDialog.InitialDirectory = "c:\\"; //Open file prompt in C drive
                 openFileDialog.Filter = "txt files (*.txt)|*.txt"; //Only allow for txt files
                 openFileDialog.RestoreDirectory = true; //If previosuly opened a file, will open in the same directory.
+                openFileDialog.FileName = "bulk.txt";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK) //If a file has been selected
                 {

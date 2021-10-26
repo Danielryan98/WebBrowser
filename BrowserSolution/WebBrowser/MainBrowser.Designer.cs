@@ -119,7 +119,7 @@ namespace WebBrowser
             // 
             this.textBoxPageTitle.Location = new System.Drawing.Point(12, 37);
             this.textBoxPageTitle.Name = "textBoxPageTitle";
-            this.textBoxPageTitle.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPageTitle.Size = new System.Drawing.Size(196, 20);
             this.textBoxPageTitle.TabIndex = 11;
             // 
             // menuStrip1
@@ -150,7 +150,7 @@ namespace WebBrowser
             // menuHistory
             // 
             this.menuHistory.Name = "menuHistory";
-            this.menuHistory.Size = new System.Drawing.Size(180, 22);
+            this.menuHistory.Size = new System.Drawing.Size(155, 22);
             this.menuHistory.Text = "History";
             this.menuHistory.Click += new System.EventHandler(this.ActivateHistoryPage);
             // 
@@ -160,26 +160,25 @@ namespace WebBrowser
             this.menuSetHomePage,
             this.btnSetHomePage});
             this.menuHomePage.Name = "menuHomePage";
-            this.menuHomePage.Size = new System.Drawing.Size(180, 22);
+            this.menuHomePage.Size = new System.Drawing.Size(155, 22);
             this.menuHomePage.Text = "Set Home Page";
             // 
             // menuSetHomePage
             // 
-            this.menuSetHomePage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuSetHomePage.Name = "menuSetHomePage";
             this.menuSetHomePage.Size = new System.Drawing.Size(100, 23);
             // 
             // btnSetHomePage
             // 
             this.btnSetHomePage.Name = "btnSetHomePage";
-            this.btnSetHomePage.Size = new System.Drawing.Size(180, 22);
+            this.btnSetHomePage.Size = new System.Drawing.Size(160, 22);
             this.btnSetHomePage.Text = "Set Home Page";
             this.btnSetHomePage.Click += new System.EventHandler(this.SetHomePage);
             // 
             // favouritesToolStripMenuItem
             // 
             this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
-            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.favouritesToolStripMenuItem.Text = "Favourites";
             this.favouritesToolStripMenuItem.Click += new System.EventHandler(this.ActivateFavouritesPage);
             // 

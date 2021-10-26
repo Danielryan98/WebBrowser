@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace WebBrowser
 {
-    
+    /*This class contains the methods related to the browser core functionality: Searching for urls, and directing the user to where they want to go with main button clicks.*/
     public partial class MainBrowser : Form
     {
         List<BulkObject> bulkList = new List<BulkObject>(); //List of type BulkObject, a bulk object has: URL, response code for that URL, and the number of bytes for that URL response.

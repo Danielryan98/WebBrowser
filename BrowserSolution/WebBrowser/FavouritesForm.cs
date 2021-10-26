@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace WebBrowser
 {
+    /*This class is for the functionality of the favourites screen that is activated through Settings -> Favourites OR ctrl + shift + f when on the browser main page.*/
     public partial class FavouritesForm : Form
     {
         public FavouritesForm()
